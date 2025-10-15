@@ -1,0 +1,35 @@
+meta {
+  name: createRepo
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseurl}}/user/repos
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/vnd.github+json
+}
+
+body:json {
+  {
+    "name": "{{$randomFirstName}}"
+  }
+}
+
+body:multipart-form {
+  name: sampleRepo
+}
+
+script:post-response {
+  var repoName = res("name");
+  bru.setEnvVar(repoName,repoName)
+  
+}
+
+docs {
+  Create a repo
+}

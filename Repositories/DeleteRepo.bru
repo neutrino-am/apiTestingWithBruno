@@ -1,0 +1,19 @@
+meta {
+  name: DeleteRepo
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseurl}}/repos/neutrino-am/sampleRepo
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/vnd.github+json
+}
+
+docs {
+  Delete the repo
+}
