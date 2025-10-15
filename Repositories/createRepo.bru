@@ -16,7 +16,8 @@ headers {
 
 body:json {
   {
-    "name": "{{$randomFirstName}}"
+    "name": "test-repo-{{$randomInt}}",
+    "description": "This is your repository created at {{$now}}",
   }
 }
 
@@ -25,9 +26,12 @@ body:multipart-form {
 }
 
 script:post-response {
-  var repoName = res("name");
-  bru.setEnvVar(repoName,repoName)
+// Get the repository name from the response body
+  const repoName = res.body.name;
   
+  // Set it as an environment variable for the next request
+  bru.setEnvVar("repoName", repoName);
+
 }
 
 docs {
