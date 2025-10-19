@@ -1,0 +1,21 @@
+name: Run Bruno API Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  bruno-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bruno
+        uses: usebruno/setup-bruno@v1
+
+      - name: Run Bruno Collection
+        run: |
+          bruno run "Repositories" --env-var "baseurl=${{ secrets.BRUNO_BASE_URL }}" --env-var "github_user=${{ secrets.BRUNO_GITHUB_USER }}" --env-var "token=${{ secrets.BRUNO_TOKEN }}"
