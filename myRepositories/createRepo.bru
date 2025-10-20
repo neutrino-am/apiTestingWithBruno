@@ -26,12 +26,19 @@ body:multipart-form {
 }
 
 script:post-response {
-// Get the repository name from the response body
+  // Get the repository name from the response body
   const repoName = res.body.name;
   
   // Set it as an environment variable for the next request
   bru.setEnvVar("repoName", repoName);
+  
+}
 
+tests {
+  test("should be able to login", function () {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
 }
 
 docs {
