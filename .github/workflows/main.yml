@@ -13,9 +13,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bruno
-        uses: usebruno/setup-bruno@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Bruno CLI
+        run: npm install -g @usebruno/cli
 
       - name: Run Bruno Collection
         run: |
-          bruno run "Repositories" --env-var "baseurl=${{ secrets.BRUNO_BASE_URL }}" --env-var "github_user=${{ secrets.BRUNO_GITHUB_USER }}" --env-var "token=${{ secrets.BRUNO_TOKEN }}"
+          bru run --env ci --reporter-html results.html --env-var "baseurl=${{ secrets.BRUNO_BASE_URL }}" --env-var "github_user=${{ secrets.BRUNO_GITHUB_USER }}" --env-var "token=${{ secrets.BRUNO_TOKEN }}"
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: results.html

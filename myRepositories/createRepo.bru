@@ -35,11 +35,12 @@ script:post-response {
 }
 
 tests {
-  test("should be able to login", function () {
+  test("should create repository successfully", function() {
     const data = res.getBody();
-    expect(res.getStatus()).to.equal(200);
+    // For successful creation, the status code should be 201
+    expect(res.getStatus()).to.equal(201);
+    expect(data).to.be.an("object");
   });
-}
 
 docs {
   Create a repo
