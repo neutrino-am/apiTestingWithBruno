@@ -1,0 +1,22 @@
+meta {
+  name: 3 updateRepo
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseurl}}/repos/{{owner}}/{{repoCreated}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "description": "This is your repository is created by {{owner}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

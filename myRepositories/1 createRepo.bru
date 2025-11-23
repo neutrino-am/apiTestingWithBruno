@@ -1,5 +1,5 @@
 meta {
-  name: createRepo
+  name: 1 createRepo
   type: http
   seq: 1
 }
@@ -17,7 +17,7 @@ headers {
 body:json {
   {
     "name": "test-repo-{{$randomInt}}",
-    "description": "This is your repository created at {{$now}}",
+    "description": "This is your repository created at {{$isoTimestamp}}"
   }
 }
 
@@ -27,10 +27,10 @@ body:multipart-form {
 
 script:post-response {
   // Get the repository name from the response body
-  const repoName = res.body.name;
+  const repoCreated = res.body.name;
   
   // Set it as an environment variable for the next request
-  bru.setEnvVar("repoName", repoName);
+  bru.setEnvVar("repoCreated", repoCreated);
   
 }
 
@@ -41,7 +41,6 @@ tests {
     expect(res.getStatus()).to.equal(201);
     expect(data).to.be.an("object");
   });
-
-docs {
-  Create a repo
+  
+  
 }

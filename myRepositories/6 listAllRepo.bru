@@ -1,0 +1,16 @@
+meta {
+  name: 6 listAllRepo
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseurl}}/users/{{owner}}/repos
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

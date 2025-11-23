@@ -1,11 +1,11 @@
 meta {
-  name: DeleteRepo
+  name: 5 DeleteRepo
   type: http
   seq: 5
 }
 
 delete {
-  url: {{baseurl}}/repos/neutrino-am/{{repoName}}
+  url: {{baseurl}}/repos/{{owner}}/{{repoCreated}}
   body: none
   auth: inherit
 }
