@@ -23,8 +23,8 @@ jobs:
 
       - name: Run Bruno Collection
         run: |
-          bru run --env ci --reporter-html results.html --env-var "baseurl=${{ secrets.BRUNO_BASE_URL }}" --env-var "github_user=${{ secrets.BRUNO_GITHUB_USER }}" --env-var "token=${{ secrets.BRUNO_TOKEN }}"
-
+          bru run --env ci --reporter-html results.html
+          
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
