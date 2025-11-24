@@ -25,6 +25,11 @@ body:multipart-form {
   name: sampleRepo
 }
 
+assert {
+  private: isFalsy
+  id: isNotEmpty
+}
+
 script:post-response {
   // Get the repository name from the response body
   const repoCreated = res.body.name;
@@ -43,4 +48,234 @@ tests {
   });
   
   
+}
+
+docs {
+  Creates a new repository for the authenticated user.
+  
+  OAuth app tokens and personal access tokens (classic) need the `public_repo` or `repo` scope to create a public repository, and `repo` scope to create a private repository.
+  
+  **Fine-grained access tokens for "Create a repository for the authenticated user"**
+  
+  This endpoint works with the following fine-grained token types:
+  
+  - GitHub App user access tokens
+  - Fine-grained personal access tokens
+  
+  
+  The fine-grained token must have the following permission set:
+  - "Administration" repository permissions (write)
+  ***
+  **Parameters for "Create a repository for the authenticated user"**
+  
+  Headers
+  `accept` string
+  Setting to `application/vnd.github+json` is recommended.
+  
+  ***
+  **HTTP response status codes for "Create a repository for the authenticated user"**
+  
+  **Status code	    Description**
+  ***
+  201	      Created
+  ***
+  304	      Not modified
+  ***
+  400	      Bad Request
+  ***
+  401	      Requires authentication
+  ***
+  403	      Forbidden
+  ***
+  404	      Resource not found
+  ***
+  422	      Validation failed, or the endpoint has been spammed.
+}
+
+example {
+  name: example
+  description: Example response
+  
+  request: {
+    url: {{baseurl}}/user/repos
+    method: POST
+    mode: multipartForm
+    headers: {
+      Accept: application/vnd.github+json
+    }
+  
+    body:json: {
+      {
+        "name": "test-repo-{{$randomInt}}",
+        "description": "This is your repository created at {{$isoTimestamp}}"
+      }
+    }
+  
+    body:multipart-form: {
+      name: sampleRepo
+    }
+  }
+  
+  response: {
+    headers: {
+      date: Mon, 24 Nov 2025 10:03:20 GMT
+      content-type: application/json; charset=utf-8
+      content-length: 5729
+      cache-control: private, max-age=60, s-maxage=60
+      vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With
+      etag: "4a344d7c39e041092aa371b129ad57e2c47cb4e2a2c78bec3fac01b41222912a"
+      x-oauth-scopes: delete_repo, notifications, repo, user
+      x-accepted-oauth-scopes: public_repo, repo
+      location: https://api.github.com/repos/neutrino-am/test-repo-22
+      x-github-media-type: github.v3; format=json
+      x-github-api-version-selected: 2022-11-28
+      x-ratelimit-limit: 5000
+      x-ratelimit-remaining: 4999
+      x-ratelimit-reset: 1763982200
+      x-ratelimit-used: 1
+      x-ratelimit-resource: core
+      access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset
+      access-control-allow-origin: *
+      strict-transport-security: max-age=31536000; includeSubdomains; preload
+      x-frame-options: deny
+      x-content-type-options: nosniff
+      x-xss-protection: 0
+      referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+      content-security-policy: default-src 'none'
+      server: github.com
+      x-github-request-id: D869:340A93:41FFD6:3ED2EA:69242D66
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "id": 1103004266,
+          "node_id": "R_kgDOQb6Caghg",
+          "name": "test-repo-22",
+          "full_name": "neutrino-am/test-repo-22",
+          "private": false,
+          "owner": {
+            "login": "neutrino-am",
+            "id": 45288876,
+            "node_id": "MDQ6VXNlcjQ1Mjg0NPK4",
+            "avatar_url": "https://avatars.githubusercontent.com/u/45288876?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/neutrino-am",
+            "html_url": "https://github.com/neutrino-am",
+            "followers_url": "https://api.github.com/users/neutrino-am/followers",
+            "following_url": "https://api.github.com/users/neutrino-am/following{/other_user}",
+            "gists_url": "https://api.github.com/users/neutrino-am/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/neutrino-am/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/neutrino-am/subscriptions",
+            "organizations_url": "https://api.github.com/users/neutrino-am/orgs",
+            "repos_url": "https://api.github.com/users/neutrino-am/repos",
+            "events_url": "https://api.github.com/users/neutrino-am/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/neutrino-am/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/neutrino-am/test-repo-22",
+          "description": "This is your repository created at 2025-11-24T10:03:18.759Z",
+          "fork": false,
+          "url": "https://api.github.com/repos/neutrino-am/test-repo-22",
+          "forks_url": "https://api.github.com/repos/neutrino-am/test-repo-22/forks",
+          "keys_url": "https://api.github.com/repos/neutrino-am/test-repo-22/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/neutrino-am/test-repo-22/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/neutrino-am/test-repo-22/teams",
+          "hooks_url": "https://api.github.com/repos/neutrino-am/test-repo-22/hooks",
+          "issue_events_url": "https://api.github.com/repos/neutrino-am/test-repo-22/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/neutrino-am/test-repo-22/events",
+          "assignees_url": "https://api.github.com/repos/neutrino-am/test-repo-22/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/neutrino-am/test-repo-22/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/neutrino-am/test-repo-22/tags",
+          "blobs_url": "https://api.github.com/repos/neutrino-am/test-repo-22/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/neutrino-am/test-repo-22/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/neutrino-am/test-repo-22/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/neutrino-am/test-repo-22/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/neutrino-am/test-repo-22/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/neutrino-am/test-repo-22/languages",
+          "stargazers_url": "https://api.github.com/repos/neutrino-am/test-repo-22/stargazers",
+          "contributors_url": "https://api.github.com/repos/neutrino-am/test-repo-22/contributors",
+          "subscribers_url": "https://api.github.com/repos/neutrino-am/test-repo-22/subscribers",
+          "subscription_url": "https://api.github.com/repos/neutrino-am/test-repo-22/subscription",
+          "commits_url": "https://api.github.com/repos/neutrino-am/test-repo-22/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/neutrino-am/test-repo-22/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/neutrino-am/test-repo-22/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/neutrino-am/test-repo-22/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/neutrino-am/test-repo-22/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/neutrino-am/test-repo-22/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/neutrino-am/test-repo-22/merges",
+          "archive_url": "https://api.github.com/repos/neutrino-am/test-repo-22/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/neutrino-am/test-repo-22/downloads",
+          "issues_url": "https://api.github.com/repos/neutrino-am/test-repo-22/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/neutrino-am/test-repo-22/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/neutrino-am/test-repo-22/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/neutrino-am/test-repo-22/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/neutrino-am/test-repo-22/labels{/name}",
+          "releases_url": "https://api.github.com/repos/neutrino-am/test-repo-22/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/neutrino-am/test-repo-22/deployments",
+          "created_at": "2025-11-23T10:03:19Z",
+          "updated_at": "2025-11-23T10:03:19Z",
+          "pushed_at": "2025-11-23T10:03:19Z",
+          "git_url": "git://github.com/neutrino-am/test-repo-22.git",
+          "ssh_url": "git@github.com:neutrino-am/test-repo-22.git",
+          "clone_url": "https://github.com/neutrino-am/test-repo-22.git",
+          "svn_url": "https://github.com/neutrino-am/test-repo-22",
+          "homepage": null,
+          "size": 0,
+          "stargazers_count": 0,
+          "watchers_count": 0,
+          "language": null,
+          "has_issues": true,
+          "has_projects": true,
+          "has_downloads": true,
+          "has_wiki": true,
+          "has_pages": false,
+          "has_discussions": false,
+          "forks_count": 0,
+          "mirror_url": null,
+          "archived": false,
+          "disabled": false,
+          "open_issues_count": 0,
+          "license": null,
+          "allow_forking": true,
+          "is_template": false,
+          "web_commit_signoff_required": false,
+          "topics": [],
+          "visibility": "public",
+          "forks": 0,
+          "open_issues": 0,
+          "watchers": 0,
+          "default_branch": "main",
+          "permissions": {
+            "admin": true,
+            "maintain": true,
+            "push": true,
+            "triage": true,
+            "pull": true
+          },
+          "allow_squash_merge": true,
+          "allow_merge_commit": true,
+          "allow_rebase_merge": true,
+          "allow_auto_merge": false,
+          "delete_branch_on_merge": false,
+          "allow_update_branch": false,
+          "use_squash_pr_title_as_default": false,
+          "squash_merge_commit_message": "COMMIT_MESSAGES",
+          "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+          "merge_commit_message": "PR_TITLE",
+          "merge_commit_title": "MERGE_MESSAGE",
+          "network_count": 0,
+          "subscribers_count": 0
+        }
+      '''
+    }
+  }
 }
