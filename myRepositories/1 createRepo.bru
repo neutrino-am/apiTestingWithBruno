@@ -27,7 +27,7 @@ body:multipart-form {
 
 assert {
   res.body.private: isBoolean
-  res.body.id: isNotEmpty
+  res.body.id: isNumber
 }
 
 script:post-response {
